@@ -42,16 +42,7 @@ This project focuses on developing a user-friendly chatbot that assists students
 - **AI Chatbot:**
   - Powered by the Gemini 1.5 Pro/Flash language model.
   - Integrated with LangChain for efficient form filling via a conversational interface.
-## Demo
-Test Cases:
-- Test 1 - When the user's message has only one field to save in the database.  
-https://youtu.be/V9fJgMzlNzs 
-- Test 2 - When the user's message has multiple fields to save in the database.  
-https://youtu.be/pgGiZA6UGPs 
-- Test 3 - When the user's message has all fields to save in the database.   
-https://youtu.be/FjvBS84DO3U 
-- Test 4 - When the user's message contains misleading information with unrelated details, understanding what information should be saved in the database.  
-https://youtu.be/Cz0gebv4_xk 
+
 ## Getting Started
 
 ### Prerequisites
