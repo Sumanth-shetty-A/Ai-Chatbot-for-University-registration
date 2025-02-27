@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/student-details">Your Registration Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/all-students">View All Students Registered</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2 class="mb-4">Your Registration Details</h2>
+    <div id="student-details">
+      {% if student %}
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text"><strong>ID:</strong> {{ student[0] }}</p>
+            <p class="card-text"><strong>Language:</strong> {{ student[1] }}</p>
+            <p class="card-text"><strong>First Name:</strong> {{ student[2] }}</p>
+            <p class="card-text"><strong>Last Name:</strong> {{ student[3] }}</p>
+            <p class="card-text"><strong>City:</strong> {{ student[4] }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ student[5] }}</p>
+            <p class="card-text"><strong>Program:</strong> {{ student[6] }}</p>  <!-- Changed from Course to Program -->
+          </div>
+        </div>
+      {% else %}
+        <div class="alert alert-info" role="alert">
+          You haven't registered yet. Please start the registration process.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Admission Chatbot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/styles.css">
+  <style>
+    .chatbox {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+    .input-container {
+      margin-top: 10px;
+    }
+    .input-field {
+      width: 85%;
+      display: inline-block;
+    }
+    .send-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">University Admissions</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="/student-details">Your Admission Details</a></li>
+        <li class="nav-item"><a class="nav-link" href="/students">View All Applicants</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mt-5">
+    <h1 class="mb-4">AI Chatbot for University Admission</h1>
+    <h2>Secure Your Future with Our Degree Programs</h2>
+    <h6>Register for University Admissions Easily</h6>
+    <h6>Our Chatbot Will Guide You Step by Step</h6>
+    <div class="chatbox mb-4" id="chatbox">
+      <div class="bot-message">Hello, I am an AI chatbot here to help you with the university admission process. Let's get started!</div>
+    </div>
+    <div class="input-container">
+      <input type="text" class="form-control input-field" id="message-input" placeholder="Ask me anything about admissions...">
+      <i class="fas fa-paper-plane send-icon" onclick="sendMessage()"></i>
+    </div>
+  </div>
+  <script>
+    document.getElementById("message-input").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") sendMessage();
+    });
+    function sendMessage() {
+    var messageInput = document.getElementById("message-input");
+    var message = messageInput.value.trim();
+    if (!message) return;  // Prevent empty messages
+
+    messageInput.value = "";  // Clear input
+    var chatbox = document.getElementById("chatbox");
+
+    // Display user message
+    var studentMessageContainer = document.createElement("div");
+    studentMessageContainer.className = "student-message";
+    studentMessageContainer.textContent = message;
+    chatbox.appendChild(studentMessageContainer);
+    chatbox.scrollTop = chatbox.scrollHeight;
+
+    fetch('/admission-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: message, user_id: "user123" })  // Include user_id for tracking
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Server responded with status ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        var botMessageContainer = document.createElement("div");
+        botMessageContainer.className = "bot-message";
+        botMessageContainer.textContent = data.response;
+        chatbox.appendChild(botMessageContainer);
+        chatbox.scrollTop = chatbox.scrollHeight;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        var botMessageContainer = document.createElement("div");
+        botMessageContainer.className = "bot-message error-message";
+        botMessageContainer.textContent = "An error occurred while communicating with the chatbot. Please try again.";
+        chatbox.appendChild(botMessageContainer);
+    });
+}
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

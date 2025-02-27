@@ -1,0 +1,14 @@
+services:
+  app:
+    container_name: flask
+    build:
+      context: .  
+    ports:
+      - "8000:8000"
+    environment:
+      - WATSONX_API_KEY=${WATSONX_API_KEY}
+      - WATSONX_URL=${WATSONX_URL}
+      - WATSONX_MODEL=${WATSONX_MODEL}
+    env_file:
+      - .env  # This ensures the .env file is correctly loaded
+    command: gunicorn -w 4 -b 0.0.0.0:8000 main:app
